@@ -8,20 +8,33 @@ import {
   Patch,
   Post,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
-import { CreateUserDto } from './dtos/create-user.dto';
+import { AuthService } from './auth.service';
+import { AuthCredentialsDto } from './dtos/auth-credential.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { User } from './entities/User.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService,
+  ) {}
 
-  // TODO: signup (create) -> auth credentials
-  @Post()
-  createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
+  @Post('/signup')
+  signUp(
+    @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
+  ): Promise<User> {
+    return this.authService.signUp(authCredentialsDto);
+  }
+
+  @Post('/signin')
+  signIn(
+    @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
+  ): Promise<{ accessToken: string }> {
+    return this.authService.signIn(authCredentialsDto);
   }
 
   @Get()
