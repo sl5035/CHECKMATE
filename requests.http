@@ -1,5 +1,14 @@
 ### Create a new user
-POST http://localhost:3000/api/users/
+POST http://localhost:3000/api/users/signup
+content-type: application/json
+
+{
+    "email": "Test1@test.com",
+    "password": "Test"
+}
+
+### SignIn with a new user
+POST http://localhost:3000/api/users/signin
 content-type: application/json
 
 {

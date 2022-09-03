@@ -8,8 +8,10 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dtos/auth-credential.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -38,21 +40,25 @@ export class UsersController {
   }
 
   @Get()
+  @UseGuards(AuthGuard())
   findAllUsers(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
   @Get('/:id')
+  @UseGuards(AuthGuard())
   findById(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return this.usersService.findOneById(id);
   }
 
   @Get()
+  @UseGuards(AuthGuard())
   findByEmail(@Query('email') email: string): Promise<User> {
     return this.usersService.findOneByEmail(email);
   }
 
   @Patch('/:id')
+  @UseGuards(AuthGuard())
   updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
@@ -61,6 +67,7 @@ export class UsersController {
   }
 
   @Delete('/:id')
+  @UseGuards(AuthGuard())
   deleteUser(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return this.usersService.remove(id);
   }
