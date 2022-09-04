@@ -11,7 +11,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {
     super({
-      // TODO: make key to an env variable
+      // TODO: make this secret key into an env variable
       secretOrKey: 'mashpotatoed',
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
