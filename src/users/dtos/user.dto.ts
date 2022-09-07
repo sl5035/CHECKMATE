@@ -1,4 +1,5 @@
 import { Expose } from 'class-transformer';
+import { Ticket } from 'src/tickets/entities/ticket.entity';
 
 export class UserDto {
   @Expose()
@@ -9,4 +10,7 @@ export class UserDto {
 
   @Expose()
   admin: boolean;
+
+  @Expose()
+  tickets: Ticket[];
 }

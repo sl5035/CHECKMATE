@@ -1,9 +1,11 @@
+import { Ticket } from '../../tickets/entities/ticket.entity';
 import {
   AfterInsert,
   AfterRemove,
   AfterUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -39,4 +41,7 @@ export class User {
   logRemove() {
     console.log(`Deleted User with id: ${this.id}`);
   }
+
+  @OneToMany((type) => Ticket, (ticket) => ticket.owner, { eager: true })
+  tickets: Ticket[];
 }
