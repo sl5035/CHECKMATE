@@ -59,7 +59,7 @@ export class UsersController {
   @Get()
   @SerializeUser(UserDto)
   @UseGuards(AuthGuard())
-  findByEmail(@Query('email') email: string): Promise<User> {
+  findByEmail(@Query('EMAIL') email: string): Promise<User> {
     return this.usersService.findOneByEmail(email);
   }
 
