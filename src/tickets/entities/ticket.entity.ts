@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
 import { User } from '../../users/entities/User.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -25,22 +25,24 @@ export class Ticket {
   category: string;
 
   @Column()
-  @IsDate()
+  @IsString()
   @IsNotEmpty()
-  openTime: Date;
+  openTime: string;
 
   @Column()
-  @IsDate()
+  @IsString()
   @IsNotEmpty()
-  lastEntry: Date;
+  lastEntry: string;
 
   @Column()
   // TODO: IsString??
   @IsUrl()
+  @IsNotEmpty()
   url: string;
 
   @Column()
   @IsNumber()
+  @IsNotEmpty()
   price: number;
 
   @ManyToOne((type) => User, (user) => user.tickets)
