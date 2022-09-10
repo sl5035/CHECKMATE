@@ -1,5 +1,6 @@
 import { User } from '../../users/entities/User.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Ticket {
@@ -22,6 +23,7 @@ export class Ticket {
   lastEntry: string;
 
   @Column()
+  @Exclude()
   url: string;
 
   @Column()
@@ -30,6 +32,6 @@ export class Ticket {
   @Column({ default: false })
   sold: boolean;
 
-  @ManyToOne((type) => User, (user) => user.tickets)
+  @ManyToOne((type) => User, (user) => user.tickets, { eager: false })
   owner: User;
 }

@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -8,16 +9,19 @@ import {
   Patch,
   Post,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApplyUser } from '../guards/apply-user.guard';
+import { CurrentUser } from '../users/decorators/current-user.decorator';
+import { User } from '../users/entities/User.entity';
 import { CreateTicketDto } from './dtos/create-ticket.dto';
-import { TicketDto } from './dtos/ticket.dto';
 import { UpdateTicketDto } from './dtos/update-ticket.dto';
 import { Ticket } from './entities/ticket.entity';
-import { SerializeTicket } from './interceptors/serialize-ticket.interceptor';
 import { TicketsService } from './tickets.service';
 
 @Controller('tickets')
+@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard())
 export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
@@ -28,19 +32,20 @@ export class TicketsController {
   //   }
 
   @Post('/create')
-  @SerializeTicket(TicketDto)
-  createTicket(@Body() createTicketDto: CreateTicketDto): Promise<Ticket> {
-    return this.ticketsService.create(createTicketDto);
+  @UseGuards(ApplyUser)
+  createTicket(
+    @Body() createTicketDto: CreateTicketDto,
+    @CurrentUser() user: User,
+  ): Promise<Ticket> {
+    return this.ticketsService.create(createTicketDto, user);
   }
 
   @Get()
-  @SerializeTicket(TicketDto)
   findAllTickets(): Promise<Ticket[]> {
     return this.ticketsService.findAll();
   }
 
   @Get('/:id')
-  @SerializeTicket(TicketDto)
   findById(@Param('id', ParseIntPipe) id: number): Promise<Ticket> {
     return this.ticketsService.findOneById(id);
   }

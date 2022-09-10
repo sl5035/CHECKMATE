@@ -5,7 +5,7 @@ import { UsersService } from '../users/users.service';
 import { Repository } from 'typeorm';
 import { CreateTicketDto } from './dtos/create-ticket.dto';
 import { Ticket } from './entities/ticket.entity';
-import jwtDecode from 'jwt-decode';
+import { User } from '../users/entities/User.entity';
 
 @Injectable()
 export class TicketsService {
@@ -15,7 +15,7 @@ export class TicketsService {
     private readonly usersService: UsersService,
   ) {}
 
-  async create(createTicketDto: CreateTicketDto): Promise<Ticket> {
+  async create(createTicketDto: CreateTicketDto, user: User): Promise<Ticket> {
     const { url, price } = createTicketDto;
     const result: string[] | Error = await this.scrape(url);
     if (!result) {
@@ -29,13 +29,6 @@ export class TicketsService {
     const ticket_category = result[8];
     const opening_time = result[10];
     const last_entry = result[12];
-
-    // TODO: Get current user
-    // const user = await this.usersService.findOneById(
-    //   jwtDecode(window.localStorage.getItem('token')),
-    // );
-
-    const user = await this.usersService.findOneById(1);
 
     const ticket = this.ticketsRepository.create({
       title: ticket_title,
