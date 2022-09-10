@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { map, Observable } from 'rxjs';
-import { UserDto } from '../dtos/user.dto';
+import { TicketDto } from '../dtos/ticket.dto';
 
 interface ClassConstructor {
   // For any classes
@@ -15,7 +15,7 @@ interface ClassConstructor {
   new (...args: any[]): {};
 }
 
-export function SerializeUser(
+export function SerializeTicket(
   dto: ClassConstructor,
 ): MethodDecorator & ClassDecorator {
   return UseInterceptors(new SerializeInterceptor(dto));
@@ -31,7 +31,7 @@ export class SerializeInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     return next.handle().pipe(
       map((data: any) => {
-        return plainToInstance(UserDto, data, {
+        return plainToInstance(TicketDto, data, {
           excludeExtraneousValues: true,
         });
       }),

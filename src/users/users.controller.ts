@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -9,15 +10,14 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dtos/auth-credential.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
-import { UserDto } from './dtos/user.dto';
 import { User } from './entities/User.entity';
-import { SerializeUser } from './interceptors/serialize-user.interceptor';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -28,7 +28,7 @@ export class UsersController {
   ) {}
 
   @Post('/signup')
-  @SerializeUser(UserDto)
+  @UseInterceptors(ClassSerializerInterceptor)
   signUp(
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
   ): Promise<User> {
@@ -43,28 +43,28 @@ export class UsersController {
   }
 
   @Get()
-  @SerializeUser(UserDto)
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthGuard())
   findAllUsers(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
   @Get('/:id')
-  @SerializeUser(UserDto)
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthGuard())
   findById(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return this.usersService.findOneById(id);
   }
 
   @Get()
-  @SerializeUser(UserDto)
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthGuard())
   findByEmail(@Query('EMAIL') email: string): Promise<User> {
     return this.usersService.findOneByEmail(email);
   }
 
   @Patch('/:id')
-  @SerializeUser(UserDto)
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthGuard())
   updateUser(
     @Param('id', ParseIntPipe) id: number,
@@ -74,7 +74,7 @@ export class UsersController {
   }
 
   @Delete('/:id')
-  @SerializeUser(UserDto)
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthGuard())
   deleteUser(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return this.usersService.remove(id);
