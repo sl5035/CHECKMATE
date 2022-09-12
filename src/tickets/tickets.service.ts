@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
-import { UsersService } from '../users/users.service';
 import { Repository } from 'typeorm';
 import { CreateTicketDto } from './dtos/create-ticket.dto';
 import { Ticket } from './entities/ticket.entity';
@@ -12,7 +11,6 @@ export class TicketsService {
   constructor(
     @InjectRepository(Ticket)
     private readonly ticketsRepository: Repository<Ticket>,
-    private readonly usersService: UsersService,
   ) {}
 
   async create(createTicketDto: CreateTicketDto, user: User): Promise<Ticket> {
