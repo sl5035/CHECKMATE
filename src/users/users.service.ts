@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { User } from './entities/User.entity';
 
-// TODO: Error handling
 @Injectable()
 export class UsersService {
   constructor(

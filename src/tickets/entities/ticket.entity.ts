@@ -29,6 +29,8 @@ export class Ticket {
   @Column()
   price: number;
 
+  // TODO: Original price??
+
   @Column({ default: false })
   sold: boolean;
 
