@@ -38,5 +38,5 @@ lerna-debug.log*
 db.sqlite
 
 # .env
-.env
+.env.*
 
