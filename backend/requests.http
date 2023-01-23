@@ -3,7 +3,7 @@ POST http://localhost:3000/api/users/signup
 content-type: application/json
 
 {
-    "email": "Test2@test.com",
+    "email": "Test1@test.com",
     "password": "Test"
 }
 
@@ -12,26 +12,25 @@ POST http://localhost:3000/api/users/signin
 content-type: application/json
 
 {
-    "email": "Test2@test.com",
+    "email": "Test1@test.com",
     "password": "Test"
 }
 
 ### Get all users
 GET http://localhost:3000/api/users/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRlc3QyQHRlc3QuY29tIiwiaWF0IjoxNjcyNzg3MTE5LCJleHAiOjE2NzI3OTA3MTl9.2dY9pObXlfEURRFaornphQ-NyahPVrnrbMO0F_CwKAM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRlc3QxQHRlc3QuY29tIiwiaWF0IjoxNjc0NDM0NTQ3LCJleHAiOjE2NzQ0MzgxNDd9.a_2rWdC-zHW2UImDxslmwVq95oqJrohfBW-cD8AMrUM
 
 ### Get user by id
 GET http://localhost:3000/api/users/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRlc3QyQHRlc3QuY29tIiwiaWF0IjoxNjcyNzg3MTE5LCJleHAiOjE2NzI3OTA3MTl9.2dY9pObXlfEURRFaornphQ-NyahPVrnrbMO0F_CwKAM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRlc3QxQHRlc3QuY29tIiwiaWF0IjoxNjc0NDM0NTQ3LCJleHAiOjE2NzQ0MzgxNDd9.a_2rWdC-zHW2UImDxslmwVq95oqJrohfBW-cD8AMrUM
 
 ### Get user by email
 GET http://localhost:3000/api/users?email=Test1@test.com
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRlc3QyQHRlc3QuY29tIiwiaWF0IjoxNjcyNzg3MTE5LCJleHAiOjE2NzI3OTA3MTl9.2dY9pObXlfEURRFaornphQ-NyahPVrnrbMO0F_CwKAM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRlc3QxQHRlc3QuY29tIiwiaWF0IjoxNjc0NDM0NTQ3LCJleHAiOjE2NzQ0MzgxNDd9.a_2rWdC-zHW2UImDxslmwVq95oqJrohfBW-cD8AMrUM
 
 ### Update information
-PATCH http://localhost:3000/api/users/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRlc3QyQHRlc3QuY29tIiwiaWF0IjoxNjcyNzg3MTE5LCJleHAiOjE2NzI3OTA3MTl9.2dY9pObXlfEURRFaornphQ-NyahPVrnrbMO0F_CwKAM
-content-type: application/json
+PATCH http://localhost:3000/api/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRlc3QxQHRlc3QuY29tIiwiaWF0IjoxNjc0NDM0NTQ3LCJleHAiOjE2NzQ0MzgxNDd9.a_2rWdC-zHW2UImDxslmwVq95oqJrohfBW-cD8AMrUM
 
 {
     "email": "Test2@test.com" 
@@ -39,3 +38,4 @@ content-type: application/json
 
 ### Delete user
 DELETE http://localhost:3000/api/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRlc3QxQHRlc3QuY29tIiwiaWF0IjoxNjc0NDM0NTQ3LCJleHAiOjE2NzQ0MzgxNDd9.a_2rWdC-zHW2UImDxslmwVq95oqJrohfBW-cD8AMrUM
