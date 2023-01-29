@@ -34,6 +34,6 @@ export class Ticket {
   @Column({ default: false })
   sold: boolean;
 
-  @ManyToOne((type) => User, (user) => user.tickets, { eager: false })
+  @ManyToOne(() => User, (user) => user.tickets, { eager: false })
   owner: User;
 }
